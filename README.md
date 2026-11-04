@@ -17,16 +17,61 @@ current build is local-first so it runs with zero configuration.
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
-npm run build        # normal server build
-npm run build:static # static export to out/
+npm run dev           # http://localhost:3000
+npm run build         # normal Next.js build
+npm run build:worker  # OpenNext bundle for Cloudflare Workers
+npm run preview:worker# preview the Worker locally
+npm run deploy:worker # build + deploy to Cloudflare (needs wrangler login)
+npm run build:static  # static export to out/
 npm run lint
 npm start
 ```
 
 ## Deploy
 
-### GitHub Pages (free, static)
+### Cloudflare Workers (OpenNext) — current
+
+This repo is configured for Cloudflare Workers using
+`@opennextjs/cloudflare`. `wrangler.jsonc` is committed on purpose so the
+auto-migration cannot generate a wrong `WORKER_SELF_REFERENCE` binding.
+
+Files:
+- `wrangler.jsonc` — Worker name `emerging-technologies`, `main`
+  `.open-next/worker.js`, `nodejs_compat`, assets binding `ASSETS`
+- `open-next.config.ts` — Cloudflare adapter config
+- `public/_headers` — immutable `_next/static` caching
+
+**Workers Builds settings** (Cloudflare dashboard):
+
+| Setting | Value |
+|---|---|
+| Build command | `npm run build:worker` |
+| Deploy command | `npx wrangler deploy` |
+| Environment variable | `NODE_VERSION=22` |
+
+**Do not** leave the build command as `npm run build` or let the dashboard
+auto-migrate: the Worker needs `.open-next/worker.js`, which only
+`npm run build:worker` produces.
+
+Local checks:
+
+```bash
+npm run build:worker     # produces .open-next/worker.js
+npm run preview:worker   # runs it in the Workers runtime
+npx wrangler login       # one-time
+npm run deploy:worker    # deploy from your machine
+```
+
+The app does not make subrequests to itself, so `wrangler.jsonc` intentionally
+omits `WORKER_SELF_REFERENCE`. If that changes, add:
+
+```jsonc
+"services": [
+  { "binding": "WORKER_SELF_REFERENCE", "service": "emerging-technologies" }
+]
+```
+
+### GitHub Pages (free, static, backup)
 
 Yes — students can open the site as a normal web page. Pages serves only static
 files, so use the static export path.
@@ -55,7 +100,10 @@ NEXT_PUBLIC_BASE_PATH=/your-repo npm run build:static
 - No accounts, quiz marking, submission uploads, or gradebook. Those need a
   backend (Phase 2).
 
-### Cloudflare Pages (free, static)
+### Cloudflare Pages (static alternative)
+
+Use this only if you prefer a static host over the Worker. It has no server
+runtime, but the current app works fully in static mode.
 
 1. Push this `web/` folder to GitHub.
 2. Cloudflare dashboard → **Workers & Pages → Create → Pages → Import an
@@ -83,8 +131,8 @@ npx wrangler pages deploy out --project-name emerging-tech-lms
 ```
 
 `public/_headers` adds immutable caching for `_next/static` and basic security
-headers. For full-stack Next.js on Cloudflare later (server actions, route
-handlers), Cloudflare recommends Workers + vinext instead of static Pages.
+headers. Static mode has no accounts, uploads, or instructor-visible progress —
+those need the Worker + Supabase path (Phase 2).
 
 ### Vercel / Netlify (recommended with Phase 2)
 
