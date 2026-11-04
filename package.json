@@ -11,6 +11,7 @@
     "build:worker": "opennextjs-cloudflare build",
     "deploy:worker": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "preview:worker": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy:pages": "node scripts/build-static.mjs && wrangler pages deploy out --project-name emerging-tech-lms --branch main --commit-dirty=true",
     "start": "next start",
     "lint": "eslint"
   },
