@@ -153,6 +153,24 @@ Lessons live in `src/lib/curriculum.ts` as Markdown strings. Each item has a
 slug, summary, duration, and `kind: "lesson" | "lab"`. Edit there to change
 content; the syllabus outlines in `../syllabus/` are the source.
 
+## Images and figures
+
+Put assets under `public/images/<unit>/` and reference them from lesson Markdown:
+
+```markdown
+![Three-layer IoT architecture](/images/c27/iot-three-layer-model.svg "Figure: Three-layer IoT architecture — device, network, and cloud")
+```
+
+- `alt` is the accessible description (always include it).
+- `title` becomes the visible caption; if omitted, `alt` is used.
+- Images render as a `<figure>` with a hairline border, 12px radius, and lazy loading.
+- Root-relative paths are prefixed with `NEXT_PUBLIC_BASE_PATH`, so they work on
+  Cloudflare Pages and GitHub Pages.
+- Formats: **SVG** for diagrams, **WebP/PNG** for screenshots. Keep files under
+  ~500 KB and 800–1200 px wide.
+- `public/_headers` caches `/images/*` for 7 days.
+- Redact names and emails in lab screenshots before committing.
+
 ## Design
 
 Follows `../design/DESIGN.md`: light Mintlify-style reading surfaces, dark

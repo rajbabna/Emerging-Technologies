@@ -458,6 +458,8 @@ The Internet of Things connects physical objects to networks so they can sense, 
 
 Sensors measure the controlled system, a controller compares readings with a threshold, and actuators respond. This sense–decide–act loop is the core of every IoT system.
 
+![Three-layer IoT architecture](/images/c27/iot-three-layer-model.svg "Figure: Three-layer IoT architecture — device, network, and cloud")
+
 ## Check your understanding
 
 - Give one real-world example of a controlled system.

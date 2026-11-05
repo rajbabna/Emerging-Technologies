@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" role="img" aria-labelledby="title desc">
+  <title id="title">Three-layer IoT architecture</title>
+  <desc id="desc">Sensors and actuators connect through a gateway and router to a cloud registration server and dashboard.</desc>
+  <rect width="860" height="300" fill="#ffffff"/>
+
+  <g font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif">
+    <!-- Device layer -->
+    <rect x="20" y="64" width="240" height="190" rx="12" fill="#fafafa" stroke="#e5e5e5"/>
+    <rect x="20" y="64" width="240" height="4" rx="2" fill="#00d4a4"/>
+    <text x="40" y="100" font-size="16" font-weight="600" fill="#0a0a0a">Device layer</text>
+    <text x="40" y="132" font-size="13" fill="#5a5a5c">Sensors: temperature,</text>
+    <text x="40" y="152" font-size="13" fill="#5a5a5c">light, motion, door</text>
+    <text x="40" y="184" font-size="13" fill="#5a5a5c">Actuators: relay, fan</text>
+
+    <!-- Network layer -->
+    <rect x="310" y="64" width="240" height="190" rx="12" fill="#fafafa" stroke="#e5e5e5"/>
+    <rect x="310" y="64" width="240" height="4" rx="2" fill="#00d4a4"/>
+    <text x="330" y="100" font-size="16" font-weight="600" fill="#0a0a0a">Network layer</text>
+    <text x="330" y="132" font-size="13" fill="#5a5a5c">IoT gateway</text>
+    <text x="330" y="152" font-size="13" fill="#5a5a5c">Router and switch</text>
+    <text x="330" y="184" font-size="13" fill="#5a5a5c">WiFi, ZigBee, Bluetooth</text>
+
+    <!-- Cloud layer -->
+    <rect x="600" y="64" width="240" height="190" rx="12" fill="#fafafa" stroke="#e5e5e5"/>
+    <rect x="600" y="64" width="240" height="4" rx="2" fill="#00d4a4"/>
+    <text x="620" y="100" font-size="16" font-weight="600" fill="#0a0a0a">Cloud layer</text>
+    <text x="620" y="132" font-size="13" fill="#5a5a5c">Registration server</text>
+    <text x="620" y="152" font-size="13" fill="#5a5a5c">Storage and rules</text>
+    <text x="620" y="184" font-size="13" fill="#5a5a5c">Remote dashboard</text>
+
+    <!-- Arrows -->
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#00b48a"/>
+      </marker>
+    </defs>
+    <line x1="262" y1="159" x2="306" y2="159" stroke="#00b48a" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="552" y1="159" x2="596" y2="159" stroke="#00b48a" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Flow label -->
+    <text x="430" y="286" font-size="12" fill="#888888" text-anchor="middle">sense → transmit → store and act</text>
+  </g>
+</svg>
